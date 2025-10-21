@@ -5,7 +5,7 @@ addpath(genpath('src'))
 OPT = struct;
 OPT.fixationfile = 'Experiment1_Fix.xlsx';
 % OPT.imgdir = 'images/';
-OPT.imgsize = [1024; 768];
+OPT.imgsize = [1280;720];
 OPT.DEBUGMODE = 0;
 OPT.S = 1:5;
 % OPT.imginfo = 'stimuliid_boundaries';
