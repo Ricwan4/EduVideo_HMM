@@ -4,11 +4,11 @@ addpath(genpath('src'))
 
 OPT = struct;
 OPT.fixationfile = 'Experiment1_Fix.xlsx';
-% OPT.imgdir = 'images/';
+OPT.imgdir = 'images/';
 OPT.imgsize = [1280;720];
 OPT.DEBUGMODE = 0;
 OPT.S = 1:3;
-OPT.imginfo = 'stimuliid_boundaries';
+OPT.imginfo = 'stimuliid_boundaries.xlsx';
 OPT.IMAGE_EXT = 'jpg';
 emhmm_toggle_color(1);
 
@@ -18,7 +18,8 @@ tmp = unique(cat(1,StimuliNames{:}));
 StimuliNamesImages = cell(length(tmp),2);
 StimuliNamesImages(:,1) = tmp;
 
-% pre-process
+
+% pre-processc
 alldata = preprocess_fixations(alldata, StimuliNames, OPT.imginfo, StimuliNamesImages);
 
 % for j=1:length(tmp)
@@ -57,8 +58,6 @@ vbopt.seed = 1000; % random seed
 vbopt.numtrials = 300;
 vbopt.verbose = 1;
 
-emhmm_toggle_color(1);
-
 % Co-clustering parameters
 hemopt.tau = round(get_median_length(alldataC(:))); 
 hemopt.seed = 1000;  
@@ -76,20 +75,17 @@ end
 
 disp('====================== HMM Complete ======================')
 
-%% To be add for re-organization for co-clustering if with-in design
-
-
 %% Group level (specify to 2, using vhem)
 
 [cogroup_hmms, trials] = vhem_cocluster(hmm_subjects, 2, [], hemopt); % may try bayesian version for data driven selection
 
 disp('====================== Co-clustering Complete ======================')
 
-save("HMM_output/Trained_Model.mat", 'cogroup_hmms', 'alldataC','StimuliNamesC');
+save("Trained_Mode_exp1.mat", 'cogroup_hmms', 'alldataC','StimuliNamesC');
 
 %% get significant
 
-Nsubjects = 27;
+Nsubjects = 22;
 Nstimuli = 140;
 HEM_K = length(cogroup_hmms{1}.hmms);
 cg_hmms = cogroup_hmms;
@@ -109,15 +105,6 @@ for i=1:Nsubjects
     end
   end
 end
-
-% (assumes K=2)
-% LL of subject under model 1 and 2
-LL1 = sum(LL(:,:,1),2);  % sum over stimuli
-LL2 = sum(LL(:,:,2),2);
-
-% compute AB scale
-% since some stimuli are missing, then normalize
-AB = (LL1 - LL2) ./ (abs(LL1) + abs(LL2));
 
 stim_LL1 = [];
 stim_LL2 = [];
@@ -152,11 +139,12 @@ deffect = computeCohen_d(LL2_grp1,LL2_grp2, 'paired');
 fprintf('model1 vs model2 using grp2 data: p=%0.4g, t(%d)=%0.4g, cohen_d=%0.4g\n', ...
     p2, stats2.df, stats2.tstat, deffect);
 
+
 clear LL1 LL2 AB stim_LL1 stim_LL2 LL1_grp1 LL1_grp2 h1 p1 ci1 stats1 deffect LL2_grp1 LL2_grp2 h2 p2 ci2 stat2 cg_hmms HEM_K
 
 %% behavior
 
-inputFile = 'stimuli_questionnaire_scores.tsv';
+inputFile = 'cleaned_stimuli_questionnaire_scores.tsv';
 T = readtable(inputFile, 'FileType', 'text', 'Delimiter', '\t');
 
 G = table(T.participant_id, T.total_domain_questions, T.domain_score, T.total_memory_questions, T.memory_score, ...
@@ -181,7 +169,7 @@ end
 
 %% A-B scale
 % Initialize variables
-Nsubjects = 27; 
+Nsubjects = 22; 
 Nstimuli = 140;
 
 HEM_K = length(cogroup_hmms{1}.hmms); % Should be 2 for this setup
@@ -201,17 +189,16 @@ for i = 1:Nsubjects
 end
 
 % Compute LL1 and LL2 (sum across stimuli for each subject)
-LL1 = sum(LL(:, :, 1), 2, 'omitnan');
-LL2 = sum(LL(:, :, 2), 2, 'omitnan');
+LL1 = sum(LL(:, :, 1), 2,'omitnan');
+LL2 = sum(LL(:, :, 2), 2,'omitnan');
 
 % Compute A-B scale
 AB_scale = (LL1 - LL2) ./ (abs(LL1) + abs(LL2));
 
-clear trials LL1 LL2 k j i HEM_K
+% clear trials LL1 LL2 k j i HEM_K
 
 %% Visualize 
 
-event = 60;
-vhem_plot(cogroup_hmms{event},[],'c',[])
-% vhem_plot_fixations(alldataC(event,:), cogroup_hmms{event}, [], 'g', 1);
+event =49;
+vhem_plot(cogroup_hmms{event},'Backgroud.jpg','c',[])
 
