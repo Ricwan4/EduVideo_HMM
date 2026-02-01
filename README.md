@@ -1,7 +1,7 @@
 # Emotion influences behavioral outcomes and attention during goal-directed reading
 ___
 
-<img src="Research_Summary.jpg" width="1000"/><br/>
+<img src="Research_Summary.jpg"/><br/>
 ___
 ## **Abstract**
 Online education has become a prominent feature of modern learning. However, what determines learning success in online education remains unclear. To explore this, the present study applies Hidden Markov Model to eye-tracking and EEG data in an open datasets contains education video viewing task. The model revealed two eye movement patterns: a global pattern where fixations distributed across the video, and a local pattern where fixations focuses on video-relevant features. The model also revealed 6 distinct brain states involving attention and memory. Experiment 1 and 2 explore the impact of task engagmenet on eye movement. We found that compared to intentional learning condition, more participants uses global pattern and suffers from worse memory performance in incidental learning condition. Experiment 3 explore the impact of video style. We found that only in the person with animation style, the local eye movement pattern and memory brain states are associated with learning success. In all, this study explore factors that indictate success and offer insights for improving learning efficiency in online education.
