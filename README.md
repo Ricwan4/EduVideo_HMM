@@ -17,7 +17,7 @@ In short, our analysis includes 2 parts:
 
 In simple term, we segment the video following the principle that keeps features within the segments as consistent as possible (Shown as Figure above), and apply EMHMM methods. After processing EEG into source reconstructed space, when apply canonical-HMM which are pretrained on a large datasets on our data to discover fast brain transitions.
 
-The github repo is organized in three experiments, Experiment 1 and 2 contains only Eye tracking analysis. Experiment 3 contains both Eye tracking and EEG analysis.
+The github repo is organized in three experiments, Experiment 1 and 2 contains only Eye tracking analysis. Experiment 3 contains both Eye tracking and EEG analysis. Note that in Exp3, Eye tracking analysis would be different from paper since in the paper, we swap the cluster group to make it consistent that group 1 always correspond to local pattern.
 
 ___
 ## **Datasets**
