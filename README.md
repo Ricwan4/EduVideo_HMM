@@ -1,4 +1,4 @@
-# Emotion influences behavioral outcomes and attention during goal-directed reading
+# The Eye Movement Pattern and Brain Dynamics indicate successful learning during education video viewing
 ___
 
 <img src="Research_Summary.jpg"/><br/>
